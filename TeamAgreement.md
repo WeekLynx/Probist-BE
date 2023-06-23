@@ -137,7 +137,7 @@ Push to our individual branchs the merge on to staging before pushing to main if
 Will you be using a PR review workflow? If so, consider:
 
 * How many people must review a PR?
-2
+ Just 1 but preferable 2
 
 * Who merges PRs?
 Alex
