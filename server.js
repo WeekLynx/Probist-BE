@@ -14,10 +14,10 @@ const { Configuration, OpenAIApi } = require("openai");
 app.use(cors());
 app.use(express.json());
 
-const port = process.env.PORT || 3004;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+const PORT = process.env.PORT || 3002;
+
+app.listen(PORT, () => console.log(`listening on ${PORT}`));
+mongoose.connect(process.env.MONGO_URL);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -40,8 +40,6 @@ async function runOpenAI() {
 
 app.use(express.json());
 
-
-// Define your endpoint handlers
 app.post('/interviews', createInterview);
 
 async function createInterview(request, response, next) {
@@ -107,11 +105,6 @@ async function deleteInterview(request, response, next) {
     next(error);
   }
 }
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 
 app.get('/', (request, response)=>{

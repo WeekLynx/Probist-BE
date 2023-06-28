@@ -6,61 +6,61 @@ const { Schema } = mongoose;
 const interviewSchema = new Schema({
   username: {
     type: String,
-    description: 'Username of the interviewer'
+    // description: 'Username of the interviewer'
   },
   person: {
     type: {
       name: {
         type: String,
-        description: 'Name of the interviewee'
+        // description: 'Name of the interviewee'
       },
       knowledgeBase: {
         type: String,
-        description: 'Specific areas of knowledge possessed by the interviewee'
+        // description: 'Specific areas of knowledge possessed by the interviewee'
       },
       influencesAndInspirations: {
         type: String,
-        description: 'Influences and inspirations for the interviewee'
+        // description: 'Influences and inspirations for the interviewee'
       },
       uniqueInsightsOrPerspectives: {
         type: String,
-        description: 'Unique insights or perspectives offered by the interviewee'
+        // description: 'Unique insights or perspectives offered by the interviewee'
       },
       currentRelevance: {
         type: String,
-        description: 'Current relevance or standing of the interviewee'
+        // description: 'Current relevance or standing of the interviewee'
       },
       interactionsWithPeersAndCritics: {
         type: String,
-        description: 'Interactions of the interviewee with peers and critics'
+        // description: 'Interactions of the interviewee with peers and critics'
       },
       personalBackground: {
         type: String,
-        description: 'Personal background of the interviewee'
+        // description: 'Personal background of the interviewee'
       },
       publicPersona: {
         type: String,
-        description: 'Public persona or image of the interviewee'
+        // description: 'Public persona or image of the interviewee'
       },
       articulationStyle: {
         type: String,
-        description: 'Articulation style of the interviewee'
+        // description: 'Articulation style of the interviewee'
       },
       senseOfHumor: {
         type: String,
-        description: 'Sense of humor displayed by the interviewee'
+        // description: 'Sense of humor displayed by the interviewee'
       },
       intellectualContributions: {
         type: String,
-        description: 'Intellectual contributions made by the interviewee'
+        // description: 'Intellectual contributions made by the interviewee'
       },
       currentEventsEngagement: {
         type: String,
-        description: 'Engagement of the interviewee with current events'
+        // description: 'Engagement of the interviewee with current events'
       },
       fallacies: {
         type: [String],
-        description: 'Logical fallacies used by the interviewee'
+        // description: 'Logical fallacies used by the interviewee'
       }
     }
   },
@@ -68,24 +68,24 @@ const interviewSchema = new Schema({
     type: [{
       intervieweeName: {
         type: String,
-        description: 'Name of the interviewee'
+        // description: 'Name of the interviewee'
       },
       goal: {
         type: String,
-        description: 'Goal or topic of the interview'
+        // description: 'Goal or topic of the interview'
       },
       questionsAndAnswers: {
         type: [{
           question: {
             type: String,
-            description: 'An interview question'
+            // description: 'An interview question'
           },
           answer: {
             type: String,
-            description: 'The corresponding answer to the question'
+            // description: 'The corresponding answer to the question'
           }
         }],
-        description: 'Alternating array of interview questions and answers'
+        // description: 'Alternating array of interview questions and answers'
       }
     }]
   }
