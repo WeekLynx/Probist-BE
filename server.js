@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 const app = express();
 const Interview = require('./models/interviews.js');
 const { Configuration, OpenAIApi } = require("openai");
+const jwt = require('jsonwebtoken');
+const jwtAuthz = require('express-jwt-authz');
 
 app.use(cors());
 app.use(express.json());
@@ -32,7 +34,9 @@ async function runOpenAI() {
   const openai = new OpenAIApi(configuration);
   const chat_completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: "Hello world" }],
+    messages: [
+      { role: "user", content: "Hello world" }
+    ],
   });
 
   console.log(chat_completion);
@@ -40,12 +44,56 @@ async function runOpenAI() {
 
 app.use(express.json());
 
+function extractEmailFromJWT(request, response, next) {
+  const authorizationHeader = request.headers.authorization;
+  if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {
+    const token = authorizationHeader.split(' ')[1];
+
+    try {
+      const decodedToken = jwt.verify(token, 'your-jwt-secret'); // Replace 'your-jwt-secret' with your actual JWT secret
+      request.user = { email: decodedToken.email };
+    } catch (error) {
+      console.log('failed to verify JWT: ', error);
+    }
+  }
+  next();
+}
+
+app.use(extractEmailFromJWT);
+
 app.post('/interviews', createInterview);
 
 async function createInterview(request, response, next) {
   try {
-    let createdInterview = await Interview.create(request.body);
+    const { name, topic, goal, tone, question } = request.body;
+    const email = request.user.email;
+
+    let createdInterview = await Interview.create({
+      name,
+      topic,
+      goal,
+      tone,
+      question,
+      email,
+    });
+
     response.status(200).send(createdInterview);
+  } catch (error) {
+    next(error);
+  }
+}
+
+app.get('/interviews', getAllInterviews);
+
+async function getAllInterviews(request, response, next) {
+  try {
+    let interviews = await Interview.find();
+
+    if (interviews.length === 0) {
+      response.status(404).send('No Interviews found');
+      return;
+    }
+    response.status(200).send(interviews);
   } catch (error) {
     next(error);
   }
@@ -107,7 +155,7 @@ async function deleteInterview(request, response, next) {
 }
 
 
-app.get('/', (request, response)=>{
+app.get('/', (request, response) => {
   response.status(200).send('Test!');
 });
 

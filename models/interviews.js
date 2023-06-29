@@ -1,19 +1,26 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+
+const Schema = mongoose.Schema;
 
 const interviewSchema = new Schema({
-  username: {
-    type: String,
-    // description: 'Username of the interviewer'
+  user: {
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    }
   },
   person: {
-    type: {
-      name: {
-        type: String,
-        // description: 'Name of the interviewee'
-      },
+    name: {
+      type: String,
+      required: true
+    },
+    personality: {
       knowledgeBase: {
         type: String,
         // description: 'Specific areas of knowledge possessed by the interviewee'
@@ -61,39 +68,64 @@ const interviewSchema = new Schema({
       fallacies: {
         type: [String],
         // description: 'Logical fallacies used by the interviewee'
+      },
+      rhetoricalStrategies: {
+        type: String,
+        // description: 'Rhetorical strategies employed by the interviewee'
+      },
+      argumentativeStyle: {
+        type: String,
+        // description: 'Overall argumentative style of the interviewee'
+      },
+      debateTactics: {
+        type: String,
+        // description: 'Specific debate tactics employed by the interviewee'
+      },
+      responsePatterns: {
+        type: String,
+        // description: 'Typical response patterns to different types of questions or challenges'
+      },
+      emotionalTriggers: {
+        type: String,
+        // description: 'Topics or arguments that trigger strong emotional responses from the interviewee'
+      },
+      responseToCounterarguments: {
+        type: String,
+        // description: 'How the interviewee handles counterarguments'
       }
     }
   },
-  interviews: {
-    type: [{
-      intervieweeName: {
+  interviews: [{
+    intervieweeName: {
+      type: String,
+      required: true
+    },
+    topics: [{
+      type: String,
+      required: true
+    }],
+    goal: {
+      type: String,
+      required: true
+    },
+    tone: {
+      type: String,
+      required: true
+    },
+    questionsAndAnswers: [{
+      question: {
         type: String,
-        // description: 'Name of the interviewee'
+        required: true
       },
-      goal: {
+      answer: {
         type: String,
-        // description: 'Goal or topic of the interview'
-      },
-      questionsAndAnswers: {
-        type: [{
-          question: {
-            type: String,
-            // description: 'An interview question'
-          },
-          answer: {
-            type: String,
-            // description: 'The corresponding answer to the question'
-          }
-        }],
-        // description: 'Alternating array of interview questions and answers'
+        required: true
       }
     }]
-  }
+  }]
 });
 
-const Interview = mongoose.model('interview', interviewSchema);
-
-module.exports = Interview;
+module.exports = mongoose.model('Interview', interviewSchema);
 
 
 
