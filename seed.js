@@ -11,48 +11,40 @@ const Interview = require('./models/interviews.js');
 
 async function seed() {
   await Interview.create({
-    username: 'Dylan Cooper',
+    user: {
+      name: 'Dylan Cooper',
+      email: 'cooper.softdev@gmail.com',
+    },
     person: {
-      name: 'Mr. Rogers',
-      knowledgeBase: 'Mr. Rogers possesses extensive knowledge in child development, psychology, and early education.',
-      influencesAndInspirations: 'Mr. Rogers\' influences and inspirations include his father, Fred Rogers Sr., and his teacher, Miss Sarah.',
-      uniqueInsightsOrPerspectives: 'Mr. Rogers offers unique insights into the importance of empathy, kindness, and self-expression in childhood development.',
-      currentRelevance: 'Mr. Rogers continues to be celebrated for his impact on children\'s television and social-emotional learning.',
-      interactionsWithPeersAndCritics: 'Mr. Rogers is known for his gentle and compassionate demeanor in all interactions, both with peers and critics.',
-      personalBackground: 'Mr. Rogers was born and raised in Pennsylvania and studied music composition.',
-      publicPersona: 'Mr. Rogers is recognized as a beloved television host and advocate for children.',
-      articulationStyle: 'Mr. Rogers\' articulation style is soft-spoken, deliberate, and comforting.',
-      senseOfHumor: 'Mr. Rogers appreciates gentle and light-hearted humor.',
-      intellectualContributions: 'Mr. Rogers has made intellectual contributions through his development and hosting of the television series "Mister Rogers\' Neighborhood," which focuses on social-emotional development and educational topics for children.',
-      currentEventsEngagement: 'Mr. Rogers engages with current events through his show, addressing topics that affect children and families.',
-      fallacies: []
+      name: 'Neil deGrasse Tyson',
+      personality: {
+        knowledgeBase: 'Neil deGrasse Tyson possesses extensive knowledge in astrophysics, cosmology, and science communication.',
+        influencesAndInspirations: 'Neil deGrasse Tyson\'s influences and inspirations include Carl Sagan and his own experiences with astronomy and stargazing.',
+        uniqueInsightsOrPerspectives: 'Neil deGrasse Tyson offers unique insights into the wonders of the universe, the importance of scientific literacy, and the need for evidence-based thinking.',
+        currentRelevance: 'Neil deGrasse Tyson continues to be relevant as a science communicator, hosting educational programs and sharing his knowledge on various media platforms.',
+        interactionsWithPeersAndCritics: 'Neil deGrasse Tyson is known for engaging with peers and critics in discussions and debates, providing scientific explanations and clarifications.',
+        personalBackground: 'Neil deGrasse Tyson was born and raised in New York City and developed a passion for astronomy from a young age.',
+        publicPersona: 'Neil deGrasse Tyson is recognized as a renowned astrophysicist, science communicator, and host of educational television programs.',
+        articulationStyle: 'Neil deGrasse Tyson has an articulate and engaging style of communication, making complex scientific concepts accessible to a wide audience.',
+        senseOfHumor: 'Neil deGrasse Tyson appreciates humor and often incorporates it into his science communication to make it more engaging and relatable.',
+        intellectualContributions: 'Neil deGrasse Tyson has made significant intellectual contributions through his research in astrophysics and his efforts to popularize science and increase public interest in the cosmos.',
+        currentEventsEngagement: 'Neil deGrasse Tyson actively engages with current events related to science, space exploration, and scientific discoveries, providing scientific analysis and commentary.',
+        fallacies: [],
+        rhetoricalStrategies: 'Neil deGrasse Tyson employs rhetorical strategies such as using vivid metaphors, storytelling, and relatable examples to communicate complex scientific concepts.',
+        argumentativeStyle: 'Neil deGrasse Tyson adopts a rational and evidence-based argumentative style, relying on scientific data, logical reasoning, and critical thinking.',
+        debateTactics: 'Neil deGrasse Tyson utilizes debate tactics such as presenting counterarguments, using analogies to illustrate points, and challenging flawed reasoning.',
+        responsePatterns: 'Neil deGrasse Tyson demonstrates consistent response patterns, often addressing questions and challenges with scientific explanations and empirical evidence.',
+        emotionalTriggers: 'Neil deGrasse Tyson may exhibit strong emotional responses when confronted with misinformation or pseudoscience that undermines scientific principles.',
+        responseToCounterarguments: 'Neil deGrasse Tyson typically responds to counterarguments by providing scientific evidence, logical reasoning, and clarifications to address any misconceptions.'
+      }
     },
     interviews: [
       {
-        intervieweeName: 'Mr. Rogers',
-        goal: 'To understand why Mr. Rogers chose the career he did',
-        questionsAndAnswers: [
-          {
-            question: 'What motivated you to pursue a career in children\'s television programming?',
-            answer: 'I was motivated to pursue a career in children\'s television programming because I strongly believe in the power of media to positively influence young minds. I wanted to create a show that would help children navigate their emotions, build self-esteem, and develop important life skills.'
-          },
-          {
-            question: 'How do you believe your show, "Mister Rogers\' Neighborhood," has made a positive impact on children?',
-            answer: 'I believe "Mister Rogers\' Neighborhood" has made a positive impact on children by providing a safe and nurturing space where they can explore their feelings, learn about the world around them, and feel valued and respected.'
-          },
-          {
-            question: 'Can you share a memorable experience you had while filming an episode of your show?',
-            answer: 'One memorable experience I had while filming an episode was when I invited a child with a disability to join me on the show. It was a powerful moment to showcase inclusivity and teach children about empathy and acceptance.'
-          },
-          {
-            question: 'What challenges did you face in creating content that effectively communicated with young children?',
-            answer: 'One of the challenges I faced in creating content for young children was finding ways to communicate complex ideas in a simple and accessible manner. I always strived to use language and visuals that children could understand and relate to.'
-          },
-          {
-            question: 'How do you think your show has contributed to the overall well-being and development of children?',
-            answer: 'I believe "Mister Rogers\' Neighborhood" has contributed to the overall well-being and development of children by fostering a sense of belonging, encouraging kindness and empathy, and helping children navigate challenging emotions and life situations.'
-          }
-        ]
+        intervieweeName: 'Neil deGrasse Tyson',
+        topics: ['Flat Earth and Round Earth'],
+        goal: 'To make Neil deGrasse Tyson prove that the Earth is round',
+        tone: 'AGGRESSIVE',
+        questionsAndAnswers: []
       }
     ]
   });
