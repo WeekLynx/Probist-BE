@@ -10,8 +10,6 @@ const mongoose = require('mongoose');
 const app = express();
 const Interview = require('./models/interviews.js');
 const { Configuration, OpenAIApi } = require("openai");
-const jwt = require('jsonwebtoken');
-const jwtAuthz = require('express-jwt-authz');
 
 app.use(cors());
 app.use(express.json());
@@ -41,25 +39,6 @@ async function runOpenAI() {
 
   console.log(chat_completion);
 }
-
-app.use(express.json());
-
-function extractEmailFromJWT(request, response, next) {
-  const authorizationHeader = request.headers.authorization;
-  if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {
-    const token = authorizationHeader.split(' ')[1];
-
-    try {
-      const decodedToken = jwt.verify(token, 'your-jwt-secret'); // Replace 'your-jwt-secret' with your actual JWT secret
-      request.user = { email: decodedToken.email };
-    } catch (error) {
-      console.log('failed to verify JWT: ', error);
-    }
-  }
-  next();
-}
-
-app.use(extractEmailFromJWT);
 
 app.post('/interviews', createInterview);
 
