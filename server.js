@@ -8,7 +8,7 @@ const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const mongoose = require('mongoose');
 const app = express();
-const Interview = require('./models/interviews.js');
+const Interview = require('./models/inter.js');
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
@@ -42,7 +42,21 @@ async function runOpenAI(request, response, next) {
       max_tokens: 500,
       temperature: 0.9,
     });
-    response.status(200).send(aiResponse.data.choices[0].text);
+
+    const interviewQuestions = aiResponse.data.choices[0].text.split('. ');
+    interviewQuestions.shift();
+    let output = interviewQuestions.map(question => question.slice(0, question.indexOf('?') + 1));
+
+    await Interview.create({
+      intervieweeName: request.body.intervieweeName,
+      topic: request.body.topics,
+      goal: request.body.goal,
+      tone: request.body.tone,
+      user: request.body.user.name,
+      email: request.body.user.email,
+      questions: output
+    });
+    response.status(200).send(output);
   } catch (error) {
     next(error);
   }
@@ -62,7 +76,7 @@ app.post('/interviews', createInterview);
 
 async function createInterview(request, response, next) {
   try {
-    const { name, topic, goal, tone, question } = request.body;
+    const { name, topic, goal, tone, } = request.body;
     const email = request.user.email;
 
     let createdInterview = await Interview.create({
@@ -70,7 +84,6 @@ async function createInterview(request, response, next) {
       topic,
       goal,
       tone,
-      question,
       email,
     });
 
@@ -133,6 +146,12 @@ async function updateInterview(request, response, next) {
     next(error);
   }
 }
+
+app.delete('/interviews', async (request, response) => {
+  await Interview.deleteMany({});
+  response.send('test');
+});
+
 
 app.delete('/interviews/:interviewId', deleteInterview);
 

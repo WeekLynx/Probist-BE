@@ -6,7 +6,7 @@ require('dotenv').config();
 console.log(process.env.MONGO_URL);
 mongoose.connect(process.env.MONGO_URL);
 
-const Interview = require('./models/interviews.js');
+const Interview = require('./models/inter.js');
 
 
 async function seed() {
