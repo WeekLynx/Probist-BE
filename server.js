@@ -11,6 +11,12 @@ const app = express();
 const Interview = require('./models/interviews.js');
 const { Configuration, OpenAIApi } = require("openai");
 
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
 app.use(cors());
 app.use(express.json());
 
@@ -25,19 +31,31 @@ db.once('open', function () {
   console.log('Mongoose is connected');
 });
 
-async function runOpenAI() {
-  const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-  const openai = new OpenAIApi(configuration);
-  const chat_completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "user", content: "Hello world" }
-    ],
-  });
+app.post('/getInterview', runOpenAI);
 
-  console.log(chat_completion);
+async function runOpenAI(request, response, next) {
+  console.log(request.body);
+  try {
+    const aiResponse = await openai.createCompletion({
+      model: 'text-davinci-003',
+      prompt: `Provide a list of 10 ${request.body.tone} questions that a journalist would ask ${request.body.intervieweeName} centered around the following topics :${request.body.topics}. The goal of this interview is ${request.body.goal}.`,
+      max_tokens: 500,
+      temperature: 0.9,
+    });
+    response.status(200).send(aiResponse.data.choices[0].text);
+  } catch (error) {
+    next(error);
+  }
+
+  // const chat_completion = await openai.createChatCompletion({
+  //   model: "gpt-3.5-turbo",
+  //   messages: [
+  //     { role: "user", content: "Hello world" }
+  //   ],
+  // });
+
+  // console.log(chat_completion);
+
 }
 
 app.post('/interviews', createInterview);
