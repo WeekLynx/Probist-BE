@@ -147,10 +147,18 @@ async function updateInterview(request, response, next) {
   }
 }
 
-app.delete('/interviews', async (request, response) => {
-  await Interview.deleteMany({});
-  response.send('test');
-});
+app.delete('/interviews:interviewId', deleteInterview);
+
+async function deleteInterview(request, response, next) {
+  try {
+    let id = request.params._id;
+    await Interview.findByIdAndDelete(id);
+    response.status(200).send('Interview was deleted from db!');
+  } catch (error) {
+    next(error);
+  }
+
+};
 
 
 app.delete('/interviews/:interviewId', deleteInterview);
