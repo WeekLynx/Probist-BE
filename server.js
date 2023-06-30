@@ -38,9 +38,9 @@ async function runOpenAI(request, response, next) {
   try {
     const aiResponse = await openai.createCompletion({
       model: 'text-davinci-003',
-      prompt: `Provide a list of 10 ${request.body.tone} questions that a journalist would ask ${request.body.intervieweeName} centered around the following topics :${request.body.topics}. The goal of this interview is ${request.body.goal}.`,
+      prompt: `Provide a list of 10 hilarious questions in a tone of ${request.body.tone}, that a journalist would ask ${request.body.intervieweeName} centered around the following topics: ${request.body.topics}. The goal of this interview is ${request.body.goal}.`,
       max_tokens: 500,
-      temperature: 0.9,
+      temperature: 1.15,
     });
 
     const interviewQuestions = aiResponse.data.choices[0].text.split('. ');
